@@ -1,3 +1,3 @@
 import streamlit as st
-import pandas as pd   # ← this was missing
+import pandas as pd
 from io import StringIO
