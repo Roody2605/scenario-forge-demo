@@ -1,0 +1,4 @@
+Supplier,Origin,Destination,SKU,Monthly_Qty,Transit_Days,Lane_Cost_EGP
+ACME Metals,Port Said,Cairo DC,SheetSteel,120,3,15000
+Delta Plastics,Alexandria,Giza DC,PolyBag,500,2,8000
+Nile Textiles,Suez,Cairo DC,CottonRoll,350,1,4000
