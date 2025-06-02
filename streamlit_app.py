@@ -5,6 +5,7 @@ st.set_page_config(page_title="Scenario-Forge MVP", layout="wide")
 st.title("📦 Scenario-Forge – Crisis Simulation MVP")
 
 uploaded_file = st.file_uploader("📄 Upload your supply chain CSV", type="csv")
+st.markdown("💡 *Or [click here to download a sample CSV](https://drive.google.com/uc?export=download&id=1-FP3yUBQfGeLTmOq3iERMi6wETM2-RBo) and try the simulation instantly!*", unsafe_allow_html=True)
 
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
