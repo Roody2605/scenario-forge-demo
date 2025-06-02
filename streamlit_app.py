@@ -1,21 +1,32 @@
-import streamlit as st
 import pandas as pd
+import streamlit as st
+import requests
+from io import StringIO
 
 st.set_page_config(page_title="Scenario-Forge MVP", layout="wide")
 st.title("📦 Scenario-Forge – Crisis Simulation MVP")
 
-uploaded_file = st.file_uploader("📄 Upload your supply chain CSV", type="csv")
-st.markdown("💡 *Or [click here to download a sample CSV](https://drive.google.com/uc?export=download&id=1-FP3yUBQfGeLTmOq3iERMi6wETM2-RBo) and try the simulation instantly!*", unsafe_allow_html=True)
+# Google Drive direct link to your sample CSV
+sample_url = "https://drive.google.com/uc?export=download&id=1-FP3yUBQfGeLTmOq3iERMi6wETM2-RBo"
 
-if uploaded_file is not None:
+# Load CSV from Google Drive if no upload
+uploaded_file = st.file_uploader("📄 Upload your supply chain CSV", type="csv")
+if uploaded_file:
     df = pd.read_csv(uploaded_file)
     st.success("✅ File uploaded successfully!")
-    st.write("Here’s a preview of your supply chain data:")
-    st.dataframe(df)
+else:
+    st.info("💡 No file uploaded — loading sample scenario...")
+    response = requests.get(sample_url)
+    df = pd.read_csv(StringIO(response.text))
+    st.success("✅ Sample file loaded automatically!")
 
-    st.markdown("### 🧠 Simulation Result")
+# Show the table
+st.write("Here’s a preview of your supply chain data:")
+st.dataframe(df)
 
-    st.markdown("""
+# Fake AI output
+st.markdown("### 🧠 Simulation Result")
+st.markdown("""
 🚨 **Disruption Simulation: Red Sea Drone Attack Detected**  
 - **Port Delays:** +10 days on LaneA (Damietta → Hamburg)  
 - **SKU Impacted:** CHR01  
@@ -26,10 +37,4 @@ if uploaded_file is not None:
 - Add 25 buffer units to CHR01 inventory next cycle  
 - Notify customer in Hamburg of new ETA
 """)
-else:
-    st.info("👉 Upload a CSV to simulate a disruption.")
-    st.markdown(
-        "[📥 Download Sample CSV](https://drive.google.com/uc?export=download&id=1-FP3yUBQfGeLTmOq3iERMi6wETM2-RBo)",
-        unsafe_allow_html=True
-    )
 
